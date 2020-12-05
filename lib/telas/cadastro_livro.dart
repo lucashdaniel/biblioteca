@@ -106,8 +106,30 @@ class _CadastroLivroState extends State<CadastroLivro> {
 
   CadastroLivro() async {
     livro = await api.CadastroLivro(textControllerNome.text, textControllerEdicao.text, textControllerEdicao.text, textControllerAutor.text);
-    print(livro);
+    _showDialog("Livro cadastrado com sucesso!!!", 0);
 
+  }
+
+  void _showDialog(String s, int i) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(s),
+          actions: <Widget>[
+            FlatButton(
+              child: new Text("Ok"),
+              onPressed: () {
+                if(i == 0) {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
 

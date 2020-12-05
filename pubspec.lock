@@ -21,7 +21,7 @@ packages:
       name: cached_network_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.1"
   characters:
     dependency: transitive
     description:
@@ -122,7 +122,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.21.2"
+    version: "3.22.2"
   http:
     dependency: "direct main"
     description:

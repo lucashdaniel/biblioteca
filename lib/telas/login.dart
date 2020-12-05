@@ -62,6 +62,7 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(padding: EdgeInsets.all(10),
                   child: TextFormField(
+                    obscureText: true,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(10),
                       hintText: 'Senha',

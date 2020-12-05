@@ -1,3 +1,4 @@
+import 'package:biblioteca/model/Livro.dart';
 import 'package:biblioteca/model/emprestimo.dart';
 import 'package:biblioteca/service/api.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class _EmprestimoLivroState extends State<EmprestimoLivro> {
 
   RestApi restApi = new RestApi();
   Emprestimo emprestimo;
+  Livro livro;
 
   final textControllerCodigoLivro = TextEditingController();
   final textControllerCodigoAluno = TextEditingController();
@@ -72,12 +74,44 @@ class _EmprestimoLivroState extends State<EmprestimoLivro> {
         )
       ),
     );
-
   }
 
   EmprestaLivro()async{
-    emprestimo = await restApi.EmprestimoLivro(textControllerCodigoLivro.text, textControllerCodigoAluno.text);
+    livro = await restApi.LivroPorId(textControllerCodigoLivro.text);
+    if(livro.nome == null){
+      _showDialog('Código inválido favor verificar', 0);
+    }
+    if(livro.emprestimo == "1"){
+      _showDialog("Esse livro já está emprestado você não pode empresta-lo", 0);
+    } else {
+      emprestimo = await restApi.EmprestimoLivro(
+          textControllerCodigoLivro.text, textControllerCodigoAluno.text);
+      _showDialog('Emprestimo do livro ' + livro.nome + " efetuado com sucesso!", 1);
+    }
+  }
 
-
+  void _showDialog(String s, int i) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(s),
+          actions: <Widget>[
+            FlatButton(
+              child: new Text("Ok"),
+              onPressed: () {
+                if(i == 0) {
+                  Navigator.of(context).pop();
+                }
+                if(i == 1){
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

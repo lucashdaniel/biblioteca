@@ -1,3 +1,4 @@
+import 'package:biblioteca/model/Livro.dart';
 import 'package:biblioteca/service/api.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class _DevolucaoLivroState extends State<DevolucaoLivro> {
 
   RestApi api = RestApi();
   DevolucaoLivro devolucaoLivro;
+  Livro livro;
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +63,40 @@ class _DevolucaoLivroState extends State<DevolucaoLivro> {
   }
 
   DevolveLivro()async{
-    devolucaoLivro = await api.DevolucaoLivroLivro(textControllerDevolveLivro.text);
+    livro = await api.LivroPorId(textControllerDevolveLivro.text);
+    if(livro.nome == null){
+      _showDialog('Código inválido favor verificar', 0);
+    } else {
+      devolucaoLivro = await api.DevolucaoLivroLivro(textControllerDevolveLivro.text);
+      _showDialog('Livro devolvido com sucesso', 1);
+    }
 
+
+  }
+
+  void _showDialog(String s, int i) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(s),
+          actions: <Widget>[
+            FlatButton(
+              child: new Text("Ok"),
+              onPressed: () {
+                if(i == 0) {
+                  Navigator.of(context).pop();
+                }
+                if(i == 1){
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
 }

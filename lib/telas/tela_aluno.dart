@@ -40,6 +40,7 @@ class TelaAluno extends StatelessWidget {
                     default:
                       return Column(
                         children: [
+                          Text("Livro(s) em empréstimo: "),
                           Expanded(
                             child: ListView.builder(
                               padding: EdgeInsets.all(10.0),
@@ -67,8 +68,18 @@ class TelaAluno extends StatelessWidget {
 
 
   Widget CardLivro(LivroEmprestado livro) {
+    var parsedDate = DateTime.parse(livro.dataFim);
+    var now = DateTime.now();
+    Color color;
+    if(parsedDate.isBefore(now)){
+      color = Colors.redAccent;
+    } else if(parsedDate.isAfter(now)){
+      color = Colors.green;
+    } else {
+      color = Colors.yellowAccent;
+    }
     return Card(
-      color: Colors.deepPurpleAccent,
+      color: color,
       child: Row(
         children: <Widget>[
           Column(

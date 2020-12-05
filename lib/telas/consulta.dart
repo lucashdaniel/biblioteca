@@ -66,25 +66,41 @@ class _getAllLivrosState extends State<getAllLivros> {
       color: Colors.deepPurpleAccent,
       child: Row(
         children: <Widget>[
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "nome: " + livro.nome,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          Expanded(
+            flex: 1,
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(20),
+              child: Icon(Icons.book, size: 50,),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
               ),
-              Text(
-                "Editora: " + livro.editora,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Container(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "nome: " + livro.nome,
+                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Editora: " + livro.editora,
+                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "Autor: " + livro.autor,
+                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              Text(
-                "Autor: " + livro.autor,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
-
-
-            ],
+            )
           )
         ],
       ),

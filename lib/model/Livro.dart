@@ -4,8 +4,15 @@ class Livro {
   String editora;
   String edicao;
   String autor;
+  String emprestimo;
 
-  Livro({this.id, this.nome, this.editora, this.edicao, this.autor});
+  Livro(
+      {this.id,
+        this.nome,
+        this.editora,
+        this.edicao,
+        this.autor,
+        this.emprestimo});
 
   Livro.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -13,6 +20,7 @@ class Livro {
     editora = json['editora'];
     edicao = json['edicao'];
     autor = json['autor'];
+    emprestimo = json['emprestimo'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,6 +30,7 @@ class Livro {
     data['editora'] = this.editora;
     data['edicao'] = this.edicao;
     data['autor'] = this.autor;
+    data['emprestimo'] = this.emprestimo;
     return data;
   }
 }
