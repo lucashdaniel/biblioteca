@@ -14,7 +14,7 @@ import 'package:intl/intl.dart';
 
 
 class RestApi {
-  static final CADASTRO_URL = "http://192.168.68.113/cadastraLivro.php";
+  static final CADASTRO_URL = "http://192.168.0.103/cadastraLivro.php";
 
   Future<Livro> CadastroLivro(String nome, String editora, String edicao,
       String autor) async {
@@ -35,7 +35,7 @@ class RestApi {
   }
 
 
-  static final EMPRESTIMO_URL = "http://192.168.68.113/fazEmprestimo.php";
+  static final EMPRESTIMO_URL = "http://192.168.0.103/fazEmprestimo.php";
 
   Future<Emprestimo> EmprestimoLivro(String codigoLivro,
       String codigoAluno) async {
@@ -65,7 +65,7 @@ class RestApi {
 
 
 
-  static final CARREGALIVROEMPRESTADO_URL = "http://192.168.68.113/emprestadoPorUser.php";
+  static final CARREGALIVROEMPRESTADO_URL = "http://192.168.0.103/emprestadoPorUser.php";
 
   Future<List<LivroEmprestado>> LivrosEmprestadosPorAluno(String codigoAluno) async {
     print(codigoAluno);
@@ -87,7 +87,7 @@ class RestApi {
 
 
 
-    static final DEVOLUCAO_URL = "http://192.168.68.113/devolucao.php";
+    static final DEVOLUCAO_URL = "http://192.168.0.103/devolucao.php";
 
   Future<DevolucaoLivro> DevolucaoLivroLivro(String codigoLivro)async {
     String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
@@ -101,10 +101,10 @@ class RestApi {
   }
 
 
-  static final GETLIVRO_URL = "http://192.168.68.113/getLivros.php";
+  static final GETLIVRO_URL = "http://192.168.0.103/getLivros.php";
 
   Future<List<Livro>> getAllLivros()async{
-    var data = await http.get("http://192.168.68.113/getLivros.php");
+    var data = await http.get("http://192.168.0.103/getLivros.php");
 
     var jsonData = json.decode(data.body);
 
@@ -118,7 +118,7 @@ class RestApi {
     return livros;
   }
 
-  static final LOGIN_URL = "http://192.168.68.113/login.php";
+  static final LOGIN_URL = "http://192.168.0.103/login.php";
 
   Future<User> Login(String login, String Senha) async {
     print(login);
@@ -139,7 +139,7 @@ class RestApi {
 
   }
 
-  static final LIVRO_POR_ID = "http://192.168.68.113/buscaIdLivro.php";
+  static final LIVRO_POR_ID = "http://192.168.0.103/buscaIdLivro.php";
 
   Future<Livro> LivroPorId(String codigoLivro) async{
     http.Response response = await http.post(LIVRO_POR_ID, body: {

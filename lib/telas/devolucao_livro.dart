@@ -2,6 +2,8 @@ import 'package:biblioteca/model/Livro.dart';
 import 'package:biblioteca/service/api.dart';
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+
 
 class DevolucaoLivro extends StatefulWidget {
   @override
@@ -9,7 +11,7 @@ class DevolucaoLivro extends StatefulWidget {
 }
 
 class _DevolucaoLivroState extends State<DevolucaoLivro> {
-
+  final _limpaCampo = GlobalKey<FormState>();
   final textControllerDevolveLivro = TextEditingController();
 
   RestApi api = RestApi();
@@ -20,11 +22,17 @@ class _DevolucaoLivroState extends State<DevolucaoLivro> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.orange,
         centerTitle: true,
-        title: Text("Devolver Livro"),
+        title: Text("Devolver Livro",
+        style: TextStyle(
+          fontSize: 25.0,
+          color: Colors.black,
+        ),
+        ),
       ),
       body: Form(
+        key: _limpaCampo,
           child: Container(
             color: Colors.white,
             alignment: Alignment.center,
@@ -44,14 +52,26 @@ class _DevolucaoLivroState extends State<DevolucaoLivro> {
                   ),
                   ButtonTheme(
                     minWidth: MediaQuery.of(context).size.width*0.60,
-                    buttonColor: Colors.green,
+                    buttonColor: Colors.black54,
                     child: RaisedButton(
                       padding: EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                       onPressed: (){
                         DevolveLivro();
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(
+                            builder: (BuildContext context) => Home(),
+                        ))
+                        .then((_) => _limpaCampo.currentState.reset());
+
                       },
-                      child: Text("Devolver Livro"),
+                      child: Text("Devolver Livro", style:  TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                      ),
+
+
                     ),
                   )
                 ],
@@ -68,7 +88,7 @@ class _DevolucaoLivroState extends State<DevolucaoLivro> {
       _showDialog('Código inválido favor verificar', 0);
     } else {
       devolucaoLivro = await api.DevolucaoLivroLivro(textControllerDevolveLivro.text);
-      _showDialog('Livro devolvido com sucesso', 1);
+      _showDialog('Livro devolvido com sucesso '+ livro.nome, 1);
     }
 
 
@@ -82,17 +102,18 @@ class _DevolucaoLivroState extends State<DevolucaoLivro> {
           title: new Text(s),
           actions: <Widget>[
             FlatButton(
-              child: new Text("Ok"),
+              child: new Text("Ok", style: TextStyle(fontSize: 22.0, color: Colors.black),
+              ),
               onPressed: () {
                 if(i == 0) {
                   Navigator.of(context).pop();
                 }
                 if(i == 1){
                   Navigator.of(context).pop();
-                  Navigator.of(context).pop();
                 }
               },
             ),
+
           ],
         );
       },

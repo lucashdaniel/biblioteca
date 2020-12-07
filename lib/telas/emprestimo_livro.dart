@@ -3,6 +3,8 @@ import 'package:biblioteca/model/emprestimo.dart';
 import 'package:biblioteca/service/api.dart';
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+
 
 
 class EmprestimoLivro extends StatefulWidget {
@@ -16,6 +18,7 @@ class _EmprestimoLivroState extends State<EmprestimoLivro> {
   Emprestimo emprestimo;
   Livro livro;
 
+  final _limpaCampo = GlobalKey<FormState>();
   final textControllerCodigoLivro = TextEditingController();
   final textControllerCodigoAluno = TextEditingController();
 
@@ -24,11 +27,17 @@ class _EmprestimoLivroState extends State<EmprestimoLivro> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.orange,
         centerTitle: true,
-        title: Text("Emprestar Livro"),
+        title: Text("Emprestar Livro",
+        style: TextStyle(
+          fontSize: 25.0,
+          color: Colors.black
+        ),
+        ),
       ),
       body: Form(
+        key: _limpaCampo,
         child: Container(
           color: Colors.white,
           alignment: Alignment.center,
@@ -58,14 +67,23 @@ class _EmprestimoLivroState extends State<EmprestimoLivro> {
                 ),
                 ButtonTheme(
                   minWidth: MediaQuery.of(context).size.width*0.60,
-                  buttonColor: Colors.green,
+                  buttonColor: Colors.black54,
                   child: RaisedButton(
                     padding: EdgeInsets.all(20),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                     onPressed: (){
                       EmprestaLivro();
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(
+                        builder: (BuildContext context) => Home(),
+                      ))
+                          .then((_) => _limpaCampo.currentState.reset());
+
                     },
-                    child: Text("Emprestar Livro"),
+                    child: Text("Emprestar Livro", style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.white,
+                    ),),
                   ),
                 )
               ],
@@ -98,7 +116,7 @@ class _EmprestimoLivroState extends State<EmprestimoLivro> {
           title: new Text(s),
           actions: <Widget>[
             FlatButton(
-              child: new Text("Ok"),
+              child: new Text("Ok", style: TextStyle(fontSize: 22.0, color: Colors.black)),
               onPressed: () {
                 if(i == 0) {
                   Navigator.of(context).pop();

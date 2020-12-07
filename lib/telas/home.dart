@@ -1,123 +1,79 @@
-import 'package:biblioteca/telas/cadastro_livro.dart';
-import 'package:biblioteca/telas/consulta.dart';
-import 'package:biblioteca/telas/devolucao_livro.dart';
-import 'package:biblioteca/telas/emprestimo_livro.dart';
+
 import 'package:flutter/material.dart';
 
+import 'cadastro_livro.dart';
+import 'consulta.dart';
+import 'devolucao_livro.dart';
+import 'emprestimo_livro.dart';
+import 'inicio_btn.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  Home({Key key}) : super(key: key);
+
+  @override
+  _Home createState() => _Home();
+}
+
+/// This is the private State class that goes with MyStatefulWidget.
+class _Home extends State<Home> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  final List<Widget> _widgetOptions = <Widget>[
+    InicioBTN(),
+    CadastroLivro(),
+    getAllLivros(),
+    EmprestimoLivro(),
+    DevolucaoLivro(),
+
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple[500],
-        title: const Text('Gerenciador de Bibliotecas'),
+      // appBar: AppBar(
+      //   title: const Text('Gerenciador de tarefas'),
+      // ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
-          body: Container(
-            alignment: Alignment.center,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(padding: EdgeInsets.all(15.0),
-                    child: ButtonTheme(
-                      minWidth: MediaQuery.of(context).size.width *0.60,
-                      child: RaisedButton(
-                          padding: EdgeInsets.all(20.0),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CadastroLivro()
-                              ),
-                            );
-                          },
-                          child: Text("Cadastrar Livro",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          color: Colors.deepPurple[800]
-                      ),
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.all(15.0),
-                    child: ButtonTheme(
-                      minWidth: MediaQuery.of(context).size.width *0.60,
-                      child: RaisedButton(
-                          padding: EdgeInsets.all(20.0),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => getAllLivros()
-                              ),
-                            );;
-                          },
-                          child: Text("Consultar Todos os Livros",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          color: Colors.deepPurple[800]
-                      ),
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.all(15.0),
-                    child: ButtonTheme(
-                      minWidth: MediaQuery.of(context).size.width *0.60,
-                      child: RaisedButton(
-                          padding: EdgeInsets.all(20.0),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          child: Text("Emprestar Livro",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          color: Colors.deepPurple[800],
-                          onPressed: () {
-                            Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EmprestimoLivro()
-                            ),
-                          );;
-                          }
-
-                      ),
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.all(15.0),
-                    child: ButtonTheme(
-                      minWidth: MediaQuery.of(context).size.width *0.60,
-                      child: RaisedButton(
-                          padding: EdgeInsets.all(20.0),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DevolucaoLivro()
-                              ),
-                            );;
-                          },
-                          child: Text("Devolução",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
-                          ),
-                          color: Colors.deepPurple[800]
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+      bottomNavigationBar: BottomNavigationBar(
+        type : BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, size: 30,),
+            label: 'Home',
           ),
-
-        );
-
+          BottomNavigationBarItem(
+            icon: Icon(Icons.format_align_left_rounded,size: 30),
+            label: 'Cadastrar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search_rounded,size: 30),
+            label: 'Consultar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment_turned_in_rounded,size: 30),
+            label: 'Emprestar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment_return_rounded,size: 30),
+            label: 'Devolução',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.orangeAccent,
+        onTap: _onItemTapped,
+      ),
+    );
 
   }
-
 }
-
 
 
